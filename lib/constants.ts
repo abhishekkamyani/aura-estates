@@ -1,0 +1,34 @@
+import type { PropertySort } from "@/types/property";
+
+export const PRICE_OPTIONS = [
+  1_000_000, 2_500_000, 5_000_000, 10_000_000, 15_000_000, 20_000_000, 30_000_000,
+] as const;
+
+export const BEDROOM_OPTIONS = [1, 2, 3, 4, 5, 6] as const;
+
+export const SORT_OPTIONS: { value: PropertySort; label: string }[] = [
+  { value: "newest", label: "Newest" },
+  { value: "price-desc", label: "Price: High to Low" },
+  { value: "price-asc", label: "Price: Low to High" },
+  { value: "size-desc", label: "Largest Interior" },
+];
+
+/** Hosts allowed for listing imagery (must match next.config.ts remotePatterns). */
+export const ALLOWED_IMAGE_HOSTS = ["images.unsplash.com", "utfs.io"] as const;
+export const ALLOWED_IMAGE_HOST_SUFFIXES = [".ufs.sh"] as const;
+
+export function isAllowedImageUrl(value: string) {
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "https:") return false;
+    return (
+      (ALLOWED_IMAGE_HOSTS as readonly string[]).includes(url.hostname) ||
+      ALLOWED_IMAGE_HOST_SUFFIXES.some((suffix) => url.hostname.endsWith(suffix))
+    );
+  } catch {
+    return false;
+  }
+}
+
+export const PLACEHOLDER_IMAGE =
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80";

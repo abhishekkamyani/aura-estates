@@ -1,0 +1,21 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: aura-estates-mongo
+    restart: unless-stopped
+    ports:
+      # If a local MongoDB already uses 27017, change the left side (e.g. "27018:27017")
+      # and update MONGODB_URI accordingly.
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: aura-estates
+    volumes:
+      - aura_mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  aura_mongo_data:

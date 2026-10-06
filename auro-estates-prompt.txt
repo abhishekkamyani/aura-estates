@@ -1,0 +1,75 @@
+<role>
+You are an elite Full-Stack Next.js Developer, Creative UI/UX Designer, and Technical SEO Specialist. Your task is to autonomously build "Aura Estates," an ultra-luxurious, light-mode-only real estate portal and agency lead management system from scratch.
+</role>
+
+<project_definition>
+We are building a production-grade property portal and Agency CRM.
+- Stack: Next.js 15 (App Router), Tailwind CSS, Shadcn UI, MongoDB (via Mongoose), NextAuth.js v5 (Credentials), UploadThing (Image Bucket), React-Leaflet (Interactive Maps), and Framer Motion.
+- Theme & Vibe: Strictly LIGHT MODE ONLY. Clean, airy, modern luxury aesthetic inspired by Sotheby’s and Architectural Digest.
+- Palette: Pure White (#ffffff), Warm Off-White/Alabaster (#fcfbf9 / #f8fafc), Deep Charcoal/Graphite (#0f172a) for high-contrast typography, and Champagne Gold / Warm Ochre (#c5a059) for badges and accents.
+- Core Interactions: Smooth scroll animations, 3D perspective tilt cards, interactive map sync, and mobile-first responsiveness.
+- SEO: Fully search-engine optimized with dynamic metadata, OpenGraph tags, and JSON-LD Real Estate structured data.
+</project_definition>
+
+<seo_architecture>
+The application must achieve near-perfect technical SEO scores:
+- Implement `generateMetadata` dynamically on property detail pages (`/properties/[id]`) generating custom titles, meta descriptions, and OpenGraph/Twitter cards displaying property images.
+- Create a reusable JSON-LD component (`components/seo/PropertyJsonLd.tsx`) injecting `schema.org/RealEstateListing` structured data (price, address, number of rooms, geographic coordinates, availability status).
+- Ensure strict semantic HTML markup (`<main>`, `<article>`, `<section>`, `<aside>`) across all public pages.
+</seo_architecture>
+
+<ui_ux_and_3d_requirements>
+- Strictly Light Mode: Do not include dark mode toggles or dark themes. Use delicate borders (`border-stone-200/80`), subtle drop shadows (`shadow-sm`, `shadow-xl shadow-stone-200/50`), and backdrop-blur headers.
+- 3D Interactive Feature: Implement a 3D perspective tilt effect on featured property cards (using Framer Motion 3D transforms with `preserve-3d`, dynamic mouse-move X/Y axis tilting, and realistic glare highlights).
+- Scroll Animations: Staggered entrance animations on page load, smooth fade-in reveals for property grids, and micro-interactions on button hover.
+- Responsive Design: 100% mobile, tablet, and ultra-wide desktop optimized. Mobile navigation utilizes a slide-out drawer, and the properties search view adapts smoothly from a stacked mobile layout to a sticky split-screen desktop layout.
+</ui_ux_and_3d_requirements>
+
+<execution_steps>
+Execute the following steps sequentially:
+
+Step 1: Scaffolding & Setup
+- Scaffold a Next.js App Router project with TypeScript and Tailwind CSS.
+- Install dependencies: `mongoose`, `next-auth@beta`, `bcryptjs`, `uploadthing`, `@uploadthing/react`, `leaflet`, `react-leaflet`, `@types/leaflet`, `lucide-react`, and `framer-motion`.
+- Initialize Shadcn UI and add: button, input, card, badge, dialog, sheet, select, table.
+- Configure local MongoDB via `docker-compose.yml`.
+
+Step 2: Database Architecture (Mongoose)
+- Build cached MongoDB connection helper (`lib/mongodb.ts`).
+- Define Mongoose schemas in `models/`:
+  1. `User` (email, password, role).
+  2. `Property` (title, description, price, address, city, bedrooms, bathrooms, sqft, lat, lng, imageUrls: [String], featured: Boolean, agentId).
+  3. `Lead` (name, email, phone, message, propertyId, createdAt).
+- Create a seed script (`scripts/seed.ts`) populating an admin account (admin@auraestates.com / password123) and 6 luxury properties with coordinates and detailed specs.
+
+Step 3: Security & UploadThing Integration
+- Set up NextAuth (`auth.ts`) with Credentials provider verifying against MongoDB with `bcryptjs`.
+- Create `middleware.ts` protecting `/agency/*` routes with redirect to `/login`.
+- Set up UploadThing route handler in `app/api/uploadthing/core.ts` for multiple image uploads and export `UploadDropzone`.
+
+Step 4: Public Luxury Experience (Light Mode + 3D)
+- Build Hero Section: High-resolution modern architectural visuals, search filter bar (city, price range, bedrooms), and animated badge counters.
+- Build Interactive 3D Property Card Component: Framer Motion-powered 3D tilt with dynamic mouse tracking and image carousel.
+- Build `/properties` page: Split-screen view with a sticky `react-leaflet` map and filter controls on desktop; toggleable map view on mobile.
+- Build `/properties/[id]` page: Detailed view with image gallery, specs grid, JSON-LD structured data, and "Book Private Viewing" lead form.
+
+Step 5: Agency Dashboard (`/agency`)
+- Design a clean, high-density light-mode CRM dashboard.
+- "Listings" Tab: Manage active properties, with an "Add New Listing" modal featuring the UploadThing drag-and-drop bucket.
+- "Leads" Tab: Table of buyer tour inquiries with direct mailto/phone click handlers and date filters.
+
+Step 6: Testing & Verification
+- Ensure dynamic import (`ssr: false`) is strictly applied to Leaflet and 3D components to avoid SSR window errors.
+- Verify full layout responsiveness across standard mobile (390px), tablet (768px), and desktop (1280px+) breakpoints.
+</execution_steps>
+
+<constraints>
+- Design Constraint: Strictly Light Mode only. No dark mode code or color schemes.
+- Database Constraint: Strictly Mongoose and MongoDB. Do NOT install or run Prisma.
+- File Uploads: Real uploads through UploadThing; do not mock image upload endpoints.
+- Autonomy: Autonomously resolve any TypeScript, Leaflet SSR, or dependency installation issues.
+</constraints>
+
+<output_format>
+Execute commands and write the application files directly. Finish with a summary providing the `.env` configuration requirements and instructions to run the application locally.
+</output_format>
