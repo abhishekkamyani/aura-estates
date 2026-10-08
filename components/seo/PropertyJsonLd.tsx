@@ -1,5 +1,5 @@
 import { JsonLd } from "@/components/seo/JsonLd";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { absoluteImageUrl, absoluteUrl, siteConfig } from "@/lib/site";
 import type { PropertyDTO, PropertyStatus } from "@/types/property";
 
 const AVAILABILITY: Record<PropertyStatus, string> = {
@@ -8,7 +8,7 @@ const AVAILABILITY: Record<PropertyStatus, string> = {
   sold: "https://schema.org/SoldOut",
 };
 
-/** Splits "12 Further Lane, East Hampton, NY 11937" into PostalAddress parts. */
+/** Splits "6 Pondlight Lane, East Hampton, NY 11937" into PostalAddress parts. */
 export function parseAddress(property: Pick<PropertyDTO, "address" | "city">) {
   const parts = property.address.split(",").map((p) => p.trim());
   const regionMatch = property.address.match(/\b([A-Z]{2})\s+(\d{5}(?:-\d{4})?)\b/);
@@ -54,7 +54,7 @@ export function PropertyJsonLd({ property }: PropertyJsonLdProps) {
       unitCode: "FTK",
       unitText: "sq ft",
     },
-    image: property.imageUrls,
+    image: property.imageUrls.map(absoluteImageUrl),
   };
 
   const listing = {
@@ -63,7 +63,7 @@ export function PropertyJsonLd({ property }: PropertyJsonLdProps) {
     url,
     name: property.title,
     description: property.description,
-    image: property.imageUrls,
+    image: property.imageUrls.map(absoluteImageUrl),
     datePosted: property.createdAt,
     dateModified: property.updatedAt,
     about: { "@id": residenceId },

@@ -81,7 +81,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${manrope.variable} antialiased`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${cormorant.variable} ${manrope.variable} antialiased`}
+    >
       <body className="min-h-dvh bg-background font-sans text-foreground">
         <Providers>{children}</Providers>
       </body>

@@ -34,7 +34,7 @@ export function EditorialSection() {
           <div className="absolute -right-4 -bottom-8 hidden w-[46%] overflow-hidden rounded-[1.5rem] border-[6px] border-alabaster shadow-2xl shadow-stone-300/60 sm:block lg:-right-12">
             <div className="relative aspect-square">
               <Image
-                src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=80"
+                src={siteConfig.editorialInsetImage}
                 alt="Contemporary timber and glass residence beneath a mature tree"
                 fill
                 sizes="(min-width: 1024px) 20vw, 40vw"

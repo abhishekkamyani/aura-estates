@@ -1,5 +1,5 @@
 import { JsonLd } from "@/components/seo/JsonLd";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { absoluteImageUrl, absoluteUrl, siteConfig } from "@/lib/site";
 
 /** Agency + WebSite structured data for the home page. */
 export function OrganizationJsonLd({ areasServed }: { areasServed: string[] }) {
@@ -15,7 +15,7 @@ export function OrganizationJsonLd({ areasServed }: { areasServed: string[] }) {
             name: siteConfig.name,
             url: siteConfig.url,
             logo: absoluteUrl("/icon.svg"),
-            image: siteConfig.heroImage,
+            image: absoluteImageUrl(siteConfig.heroImage),
             description: siteConfig.description,
             email: siteConfig.email,
             telephone: siteConfig.phone,

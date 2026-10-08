@@ -32,17 +32,16 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
   const session = await auth();
   if (session?.user) redirect(callbackUrl);
 
-  const showDemoHint = process.env.NODE_ENV !== "production";
-
   return (
     <main className="grid min-h-dvh bg-alabaster lg:grid-cols-[1.05fr_1fr]">
       <section className="relative hidden overflow-hidden lg:block" aria-label="Aura Estates">
         <Image
-          src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1800&q=80"
-          alt="Contemporary white villa with a turquoise pool"
+          src={siteConfig.agencyImage}
+          alt="A low white villa with a turquoise pool beside the sea"
           fill
+          loading="eager"
           sizes="50vw"
-          className="object-cover"
+          className="object-cover object-[76%_50%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 p-12 xl:p-16">
@@ -70,14 +69,6 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
           <div className="mt-10 rounded-[1.75rem] border border-stone-200/80 bg-white p-6 shadow-xl shadow-stone-200/50 sm:p-8">
             <LoginForm callbackUrl={callbackUrl} />
           </div>
-
-          {showDemoHint && (
-            <p className="mt-6 rounded-2xl border border-gold/30 bg-gold-soft px-4 py-3 text-xs leading-relaxed text-gold-deep">
-              <span className="font-semibold">Local demo account:</span> admin@auraestates.com / password123
-              <br />
-              Run <code className="font-mono">npm run seed</code> first if you haven&apos;t already.
-            </p>
-          )}
         </div>
       </section>
     </main>

@@ -14,6 +14,17 @@ npm run dev                 # http://localhost:3000
 
 Agent portal: <http://localhost:3000/agency>. The seeded account is `admin@auraestates.com` with password `password123`.
 
+## Demo data
+
+Everything `npm run seed` loads is fictional, so nothing in the demo belongs to a real person or property:
+
+- **Leads** use the surname "Example", `example.com` email addresses, and phone numbers in the `555-01xx` range reserved for fiction.
+- **Listings** use invented street names, and their map pins are approximate town-level points rather than real addresses.
+- **Images** are free-license stock photography (generic architecture/interior shots, not tied to any specific address or seller, with no identifiable people in frame), mirrored into this project's own UploadThing bucket so the site never depends on Unsplash at runtime.
+- **Agency contact details** in [lib/site.ts](lib/site.ts) (phone, office address, email) are placeholders. Replace them before launch.
+
+Real listing photos are added by agents through the upload box in the agent portal.
+
 ## Environment variables
 
 | Variable | Required | Purpose |

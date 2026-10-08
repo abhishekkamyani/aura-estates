@@ -14,7 +14,7 @@ export const SORT_OPTIONS: { value: PropertySort; label: string }[] = [
 ];
 
 /** Hosts allowed for listing imagery (must match next.config.ts remotePatterns). */
-export const ALLOWED_IMAGE_HOSTS = ["images.unsplash.com", "utfs.io"] as const;
+export const ALLOWED_IMAGE_HOSTS = ["utfs.io"] as const;
 export const ALLOWED_IMAGE_HOST_SUFFIXES = [".ufs.sh"] as const;
 
 export function isAllowedImageUrl(value: string) {
@@ -30,5 +30,4 @@ export function isAllowedImageUrl(value: string) {
   }
 }
 
-export const PLACEHOLDER_IMAGE =
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80";
+export const PLACEHOLDER_IMAGE = "https://gbxt70nat9.ufs.sh/f/q3qRD927C251j6iYNSXDopEICx8TejBlrUFS4QMZzGhugOKX";

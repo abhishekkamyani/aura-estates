@@ -16,7 +16,9 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <form action={formAction} className="space-y-5">
+    // Autofill is discouraged so the fields start empty: browsers key saved logins by
+    // origin, so on localhost they offer credentials saved for other projects.
+    <form action={formAction} className="space-y-5" autoComplete="off">
       <input type="hidden" name="callbackUrl" value={callbackUrl} />
       <div className="space-y-1.5">
         <Label htmlFor="email" className="text-xs font-semibold text-slate-600">
@@ -28,7 +30,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
             id="email"
             name="email"
             type="email"
-            autoComplete="username"
+            autoComplete="off"
             required
             defaultValue={state?.email}
             placeholder="you@auraestates.com"
@@ -47,10 +49,10 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
             id="password"
             name="password"
             type={showPassword ? "text" : "password"}
-            autoComplete="current-password"
+            autoComplete="new-password"
             required
             minLength={6}
-            placeholder="••••••••"
+            placeholder="Enter your password"
             className={`${inputClass} pr-12`}
             aria-invalid={Boolean(error)}
           />

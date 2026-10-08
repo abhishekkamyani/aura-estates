@@ -55,7 +55,7 @@ export function ImageCarousel({
       >
         <Image
           src={slides[index]}
-          alt={count > 1 ? `${alt} — photo ${index + 1} of ${count}` : alt}
+          alt={count > 1 ? `${alt} — image ${index + 1} of ${count}` : alt}
           fill
           sizes={sizes}
           loading={priority && index === 0 ? "eager" : "lazy"}
@@ -97,7 +97,7 @@ export function ImageCarousel({
               stop(e);
               go(-1);
             }}
-            aria-label="Previous photo"
+            aria-label="Previous image"
             className="absolute top-1/2 left-3 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-graphite opacity-0 shadow-lg shadow-slate-900/10 backdrop-blur transition-all duration-300 group-hover/carousel:opacity-100 hover:scale-105 hover:bg-white focus-visible:opacity-100 [@media(hover:none)]:opacity-90"
           >
             <ChevronLeft className="size-4" />
@@ -108,7 +108,7 @@ export function ImageCarousel({
               stop(e);
               go(1);
             }}
-            aria-label="Next photo"
+            aria-label="Next image"
             className="absolute top-1/2 right-3 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-graphite opacity-0 shadow-lg shadow-slate-900/10 backdrop-blur transition-all duration-300 group-hover/carousel:opacity-100 hover:scale-105 hover:bg-white focus-visible:opacity-100 [@media(hover:none)]:opacity-90"
           >
             <ChevronRight className="size-4" />
@@ -122,7 +122,7 @@ export function ImageCarousel({
                   stop(e);
                   setIndex(i);
                 }}
-                aria-label={`Show photo ${i + 1}`}
+                aria-label={`Show image ${i + 1}`}
                 aria-current={i === index}
                 className={cn(
                   "h-1.5 rounded-full bg-white/60 transition-all duration-500 ease-luxe",

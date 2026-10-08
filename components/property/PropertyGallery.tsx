@@ -59,18 +59,18 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
             count > 1 && !mosaic && "md:col-span-3 md:row-span-2 md:rounded-r-lg",
             mosaic && "md:col-span-2 md:row-span-2 md:rounded-r-lg",
           )}
-          aria-label={`Open gallery — ${title}, photo 1 of ${count}`}
+          aria-label={`Open gallery — ${title}, image 1 of ${count}`}
         >
           <Image
             src={photos[0]}
-            alt={`${title} — main photograph`}
+            alt={`${title} — main image`}
             fill
             preload
             sizes="(min-width: 768px) 60vw, 100vw"
             className="object-cover transition-transform duration-[1.4s] ease-luxe group-hover:scale-[1.03]"
           />
           <span className="absolute right-4 bottom-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-graphite shadow-lg backdrop-blur md:hidden">
-            <Grid2x2 className="size-3.5" /> {count} photos
+            <Grid2x2 className="size-3.5" /> {count} images
           </span>
         </button>
 
@@ -91,11 +91,11 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
               type="button"
               onClick={() => openAt(position)}
               className={cn(tileClass, "hidden md:block", rounded)}
-              aria-label={`Open gallery — photo ${position + 1} of ${count}`}
+              aria-label={`Open gallery — image ${position + 1} of ${count}`}
             >
               <Image
                 src={src}
-                alt={`${title} — photograph ${position + 1}`}
+                alt={`${title} — image ${position + 1}`}
                 fill
                 loading="eager"
                 sizes="25vw"
@@ -119,9 +119,9 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
             if (e.key === "ArrowLeft") go(-1);
           }}
         >
-          <DialogTitle className="sr-only">{title} — photo gallery</DialogTitle>
+          <DialogTitle className="sr-only">{title} — image gallery</DialogTitle>
           <DialogDescription className="sr-only">
-            Use the arrow keys or the previous and next buttons to browse photographs.
+            Use the arrow keys or the previous and next buttons to browse the images.
           </DialogDescription>
           <div
             className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 sm:aspect-[16/10]"
@@ -146,7 +146,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
               >
                 <Image
                   src={photos[index]}
-                  alt={`${title} — photograph ${index + 1} of ${count}`}
+                  alt={`${title} — image ${index + 1} of ${count}`}
                   fill
                   sizes="(min-width: 1152px) 1152px, 100vw"
                   className="object-cover"
@@ -159,7 +159,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                   type="button"
                   onClick={() => go(-1)}
                   className="absolute top-1/2 left-4 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-graphite shadow-xl backdrop-blur transition hover:scale-105"
-                  aria-label="Previous photo"
+                  aria-label="Previous image"
                 >
                   <ChevronLeft className="size-5" />
                 </button>
@@ -167,7 +167,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                   type="button"
                   onClick={() => go(1)}
                   className="absolute top-1/2 right-4 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-graphite shadow-xl backdrop-blur transition hover:scale-105"
-                  aria-label="Next photo"
+                  aria-label="Next image"
                 >
                   <ChevronRight className="size-5" />
                 </button>
@@ -187,7 +187,7 @@ export function PropertyGallery({ images, title }: PropertyGalleryProps) {
                     setDirection(i > index ? 1 : -1);
                     setIndex(i);
                   }}
-                  aria-label={`Show photo ${i + 1}`}
+                  aria-label={`Show image ${i + 1}`}
                   aria-current={i === index}
                   className={cn(
                     "relative h-16 w-24 shrink-0 overflow-hidden rounded-lg transition-all",

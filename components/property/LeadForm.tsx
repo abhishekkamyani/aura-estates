@@ -101,7 +101,7 @@ function LeadFormInner({ propertyId, propertyTitle, minDate, onReset }: LeadForm
               defaultValue={value("name")}
               aria-invalid={Boolean(errors.name)}
               aria-describedby={describedBy("name")}
-              placeholder="Alexandra Grant"
+              placeholder="Your full name"
               className={inputClass}
             />
             <FieldError id="name-error" errors={errors.name} />

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getProperties } from "@/lib/properties";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteImageUrl, absoluteUrl } from "@/lib/site";
 
 // Always reflect the live inventory (and never require a database at build time).
 export const dynamic = "force-dynamic";
@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(p.updatedAt),
         changeFrequency: "weekly" as const,
         priority: 0.8,
-        images: p.imageUrls.slice(0, 5),
+        images: p.imageUrls.slice(0, 5).map(absoluteImageUrl),
       })),
     ];
   } catch (error) {

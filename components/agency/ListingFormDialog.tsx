@@ -409,7 +409,7 @@ export function ListingFormDialog({ open, onOpenChange, property }: ListingFormD
                   id="lf-address"
                   value={form.address}
                   onChange={(e) => set("address", e.target.value)}
-                  placeholder="1180 Summit Ridge Drive, Beverly Hills, CA 90210"
+                  placeholder="Street address, City, ST 00000"
                   className={inputClass}
                   aria-invalid={Boolean(errors.address)}
                 />
