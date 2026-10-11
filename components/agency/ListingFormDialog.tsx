@@ -226,7 +226,7 @@ export function ListingFormDialog({ open, onOpenChange, property }: ListingFormD
             {isEdit ? "Edit listing" : "Add new listing"}
           </DialogTitle>
           <DialogDescription>
-            {isEdit ? "Update details, photography and visibility." : "Publish a residence to the Aura portal."}
+            {isEdit ? "Update details, photography and visibility." : "Publish a residence to the Astrelle portal."}
           </DialogDescription>
         </DialogHeader>
 

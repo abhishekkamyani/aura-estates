@@ -78,7 +78,7 @@ export function Hero({ cities, stats, spotlight }: HeroProps) {
           </motion.h1>
 
           <motion.p variants={item} className="mt-7 max-w-md text-base leading-relaxed text-slate-600 sm:text-lg">
-            From cliffside villas in Malibu to sky lofts above Tribeca, Aura Estates discreetly represents a
+            From cliffside villas in Malibu to sky lofts above Tribeca, Astrelle Estates discreetly represents a
             portfolio of the world&apos;s most considered homes.
           </motion.p>
 

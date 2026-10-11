@@ -56,7 +56,7 @@ export async function generateMetadata({ searchParams }: PageProps<"/properties"
       url: canonical,
       type: "website",
       siteName: siteConfig.name,
-      images: [{ url: shareImage, alt: "Luxury residences represented by Aura Estates" }],
+      images: [{ url: shareImage, alt: "Luxury residences represented by Astrelle Estates" }],
     },
     twitter: { card: "summary_large_image", title: `${title} | ${siteConfig.name}`, description, images: [shareImage] },
   };

@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/site";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: siteConfig.name,
-    short_name: "Aura",
+    short_name: "Astrelle",
     description: siteConfig.description,
     start_url: "/",
     display: "standalone",

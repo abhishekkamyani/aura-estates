@@ -14,17 +14,17 @@ function resolveSiteUrl() {
 }
 
 export const siteConfig = {
-  name: "Aura Estates",
+  name: "Astrelle Estates",
   tagline: "Extraordinary Residences, Discreetly Represented",
   description:
-    "Aura Estates is a private real estate agency representing the world's most distinguished residences — from Beverly Hills estates to Manhattan penthouses.",
+    "Astrelle Estates is a private real estate agency representing the world's most distinguished residences — from Beverly Hills estates to Manhattan penthouses.",
   url: resolveSiteUrl(),
   // Placeholder contact details: the phone number is in the 555-01xx range
   // reserved for fiction and the street does not exist. Replace before launch.
-  email: "concierge@auraestates.com",
+  email: "concierge@astrelleestates.com",
   phone: "+1 (555) 555-0100",
   address: {
-    street: "1 Aura Plaza, Suite 400",
+    street: "1 Astrelle Plaza, Suite 400",
     city: "Beverly Hills",
     region: "CA",
     postalCode: "90210",

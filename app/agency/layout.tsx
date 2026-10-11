@@ -12,7 +12,7 @@ import { requireSession } from "@/lib/auth-guard";
 import { getLeadStats } from "@/lib/leads";
 
 export const metadata: Metadata = {
-  title: { default: "Agency Dashboard", template: "%s · Agency | Aura Estates" },
+  title: { default: "Agency Dashboard", template: "%s · Agency | Astrelle Estates" },
   robots: { index: false, follow: false },
 };
 

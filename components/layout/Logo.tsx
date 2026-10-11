@@ -6,7 +6,7 @@ export function Logo({ className, href = "/" }: { className?: string; href?: str
     <Link
       href={href}
       className={cn("group inline-flex items-center gap-2.5 text-graphite", className)}
-      aria-label="Aura Estates — home"
+      aria-label="Astrelle Estates — home"
     >
       <span className="relative grid size-9 place-items-center rounded-xl bg-graphite text-gold shadow-sm shadow-stone-300/60 transition-transform duration-500 ease-luxe group-hover:rotate-[8deg]">
         <svg viewBox="0 0 64 64" className="size-5" aria-hidden="true">
@@ -17,7 +17,7 @@ export function Logo({ className, href = "/" }: { className?: string; href?: str
         </svg>
       </span>
       <span className="flex flex-col leading-none">
-        <span className="font-serif text-[1.35rem] font-semibold tracking-[0.02em]">Aura</span>
+        <span className="font-serif text-[1.35rem] font-semibold tracking-[0.02em]">Astrelle</span>
         <span className="text-[0.55rem] font-semibold tracking-[0.42em] text-gold-deep uppercase">
           Estates
         </span>

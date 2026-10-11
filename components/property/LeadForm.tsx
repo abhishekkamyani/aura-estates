@@ -199,7 +199,7 @@ function LeadFormInner({ propertyId, propertyTitle, minDate, onReset }: LeadForm
           </Button>
           <p className="flex items-center justify-center gap-1.5 text-center text-[0.72rem] text-slate-500">
             <Lock className="size-3" aria-hidden="true" />
-            Your details are shared only with your Aura advisor.
+            Your details are shared only with your Astrelle advisor.
           </p>
         </motion.form>
       )}

@@ -14,7 +14,7 @@ function mailtoHref(lead: LeadDTO) {
     lead.propertyTitle ? ` in ${lead.propertyTitle}` : ""
   }. I would be delighted to arrange a private viewing${
     lead.preferredDate ? ` on ${formatDate(lead.preferredDate, { weekday: "long", month: "long" })}` : ""
-  }.\n\nWarm regards,\nAura Estates`;
+  }.\n\nWarm regards,\nAstrelle Estates`;
   return `mailto:${lead.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
@@ -77,7 +77,7 @@ export function LeadsTable({ leads }: { leads: LeadDTO[] }) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `aura-leads-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `astrelle-leads-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   }

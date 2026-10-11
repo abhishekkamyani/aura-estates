@@ -1,5 +1,5 @@
 /**
- * Seed the Aura Estates database.
+ * Seed the Astrelle Estates database.
  *
  *   npm run seed
  *
@@ -25,8 +25,8 @@ import { Lead } from "../models/Lead";
 loadEnvConfig(process.cwd());
 
 const ADMIN = {
-  name: "Aura Admin",
-  email: "admin@auraestates.com",
+  name: "Astrelle Admin",
+  email: "admin@astrelleestates.com",
   password: "password123",
   role: "admin" as const,
 };

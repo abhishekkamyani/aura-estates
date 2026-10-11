@@ -34,7 +34,7 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
 
   return (
     <main className="grid min-h-dvh bg-alabaster lg:grid-cols-[1.05fr_1fr]">
-      <section className="relative hidden overflow-hidden lg:block" aria-label="Aura Estates">
+      <section className="relative hidden overflow-hidden lg:block" aria-label="Astrelle Estates">
         <Image
           src={siteConfig.agencyImage}
           alt="A low white villa with a turquoise pool beside the sea"

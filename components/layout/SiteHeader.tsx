@@ -107,7 +107,7 @@ export function SiteHeader() {
             <SheetHeader className="border-b border-stone-200/80 px-6 py-5">
               <SheetTitle className="sr-only">Navigation</SheetTitle>
               <SheetDescription className="sr-only">
-                Browse Aura Estates residences and services
+                Browse Astrelle Estates residences and services
               </SheetDescription>
               <Logo />
             </SheetHeader>

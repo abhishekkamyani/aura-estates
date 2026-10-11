@@ -52,7 +52,7 @@ export function EditorialSection() {
           <Reveal>
             <p className="eyebrow flex items-center gap-3">
               <span className="gold-rule" aria-hidden="true" />
-              The Aura Standard
+              The Astrelle Standard
             </p>
             <h2 id="standard-title" className="mt-4 text-4xl leading-[1.05] font-medium sm:text-5xl lg:text-[3.5rem]">
               Real estate, practised as a <em className="text-gold-deep italic">private</em> art

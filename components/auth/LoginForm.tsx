@@ -33,7 +33,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
             autoComplete="off"
             required
             defaultValue={state?.email}
-            placeholder="you@auraestates.com"
+            placeholder="you@astrelleestates.com"
             className={inputClass}
             aria-invalid={Boolean(error)}
           />

@@ -1,4 +1,4 @@
-# Aura Estates
+# Astrelle Estates
 
 A light-mode luxury real estate portal with an agency CRM, built on Next.js 16 (App Router), Tailwind CSS v4, shadcn/ui, MongoDB (Mongoose), Auth.js v5, UploadThing, React-Leaflet and Framer Motion.
 
@@ -12,7 +12,7 @@ npm run seed                # admin account, 6 listings, sample leads
 npm run dev                 # http://localhost:3000
 ```
 
-Agent portal: <http://localhost:3000/agency>. The seeded account is `admin@auraestates.com` with password `password123`.
+Agent portal: <http://localhost:3000/agency>. The seeded account is `admin@astrelleestates.com` with password `password123`.
 
 ## Demo data
 
