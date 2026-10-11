@@ -116,3 +116,12 @@ export async function getLeadStats() {
   ]);
   return { total, last7, last30 };
 }
+
+/** Number of viewing requests per property id. */
+export async function getLeadCountsByProperty(): Promise<Record<string, number>> {
+  await connectDB();
+  const rows = await Lead.aggregate<{ _id: { toString(): string } | null; count: number }>([
+    { $group: { _id: "$propertyId", count: { $sum: 1 } } },
+  ]);
+  return Object.fromEntries(rows.filter((r) => r._id).map((r) => [r._id!.toString(), r.count]));
+}
