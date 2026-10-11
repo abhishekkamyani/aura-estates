@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getProperties } from "@/lib/properties";
+import { cityPath, propertyPath } from "@/lib/routes";
 import { absoluteImageUrl, absoluteUrl } from "@/lib/site";
 
 // Always reflect the live inventory (and never require a database at build time).
@@ -13,19 +14,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     const properties = await getProperties();
+    const latest = (items: typeof properties) =>
+      items.length ? new Date(Math.max(...items.map((p) => Date.parse(p.updatedAt)))) : undefined;
     const cities = [...new Set(properties.map((p) => p.city))];
+
     return [
-      ...staticRoutes,
+      ...staticRoutes.map((route) => ({ ...route, lastModified: latest(properties) })),
+      // Destination landing pages (the ?city= map view canonicalises to these).
       ...cities.map((city) => ({
-        url: absoluteUrl(`/properties?city=${encodeURIComponent(city)}`),
-        changeFrequency: "weekly" as const,
-        priority: 0.7,
-      })),
-      ...properties.map((p) => ({
-        url: absoluteUrl(`/properties/${p.id}`),
-        lastModified: new Date(p.updatedAt),
+        url: absoluteUrl(cityPath(city)),
+        lastModified: latest(properties.filter((p) => p.city === city)),
         changeFrequency: "weekly" as const,
         priority: 0.8,
+      })),
+      ...properties.map((p) => ({
+        url: absoluteUrl(propertyPath(p)),
+        lastModified: new Date(p.updatedAt),
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
         images: p.imageUrls.slice(0, 5).map(absoluteImageUrl),
       })),
     ];

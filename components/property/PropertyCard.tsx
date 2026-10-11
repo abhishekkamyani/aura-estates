@@ -7,6 +7,7 @@ import { ImageCarousel } from "@/components/property/ImageCarousel";
 import { PropertySpecs } from "@/components/property/PropertySpecs";
 import { FeaturedBadge, StatusBadge } from "@/components/property/StatusBadge";
 import { formatPrice } from "@/lib/format";
+import { propertyPath } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import type { PropertyDTO } from "@/types/property";
 
@@ -22,7 +23,7 @@ export const PropertyCard = forwardRef<HTMLElement, PropertyCardProps>(function 
   { property, active = false, priority = false, onHoverChange },
   ref,
 ) {
-  const href = `/properties/${property.id}`;
+  const href = propertyPath(property);
   return (
     <article
       ref={ref}

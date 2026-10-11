@@ -10,6 +10,7 @@ import { AnimatedCounter } from "@/components/motion/AnimatedCounter";
 import { Button } from "@/components/ui/button";
 import { formatPrice, formatPriceCompact } from "@/lib/format";
 import { siteConfig } from "@/lib/site";
+import { propertyPath } from "@/lib/routes";
 import type { PropertyDTO } from "@/types/property";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -159,7 +160,7 @@ export function Hero({ cities, stats, spotlight }: HeroProps) {
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               >
                 <Link
-                  href={`/properties/${spotlight.id}`}
+                  href={propertyPath(spotlight)}
                   className="group flex items-center gap-4 rounded-2xl border border-white/60 bg-white/85 p-3 pr-5 shadow-2xl shadow-slate-900/15 backdrop-blur-xl transition-colors hover:bg-white sm:max-w-sm"
                 >
                   <span className="relative size-16 shrink-0 overflow-hidden rounded-xl">

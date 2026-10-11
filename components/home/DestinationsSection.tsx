@@ -5,6 +5,7 @@ import { SectionHeading } from "@/components/home/SectionHeading";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { PLACEHOLDER_IMAGE } from "@/lib/constants";
 import { formatPriceCompact, sizedImage } from "@/lib/format";
+import { cityPath } from "@/lib/routes";
 import type { DestinationSummary } from "@/lib/properties";
 
 export function DestinationsSection({ destinations }: { destinations: DestinationSummary[] }) {
@@ -36,7 +37,7 @@ export function DestinationsSection({ destinations }: { destinations: Destinatio
           {destinations.map((d) => (
             <RevealItem key={d.city} className="w-[78vw] shrink-0 snap-start sm:w-auto">
               <Link
-                href={`/properties?city=${encodeURIComponent(d.city)}`}
+                href={cityPath(d.city)}
                 className="group relative block aspect-[4/3.2] overflow-hidden rounded-[1.75rem] shadow-lg shadow-stone-300/40"
               >
                 <Image

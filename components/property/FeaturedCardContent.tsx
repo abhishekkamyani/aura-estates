@@ -7,6 +7,7 @@ import { ImageCarousel } from "@/components/property/ImageCarousel";
 import { PropertySpecs } from "@/components/property/PropertySpecs";
 import { FeaturedBadge, StatusBadge } from "@/components/property/StatusBadge";
 import { formatPrice } from "@/lib/format";
+import { propertyPath } from "@/lib/routes";
 import type { PropertyDTO } from "@/types/property";
 
 /** Shared card chrome for the featured card (static SSR fallback and 3D tilt version). */
@@ -25,7 +26,7 @@ interface FeaturedCardContentProps {
 }
 
 export function FeaturedCardContent({ property, priority, depth, glare }: FeaturedCardContentProps) {
-  const href = `/properties/${property.id}`;
+  const href = propertyPath(property);
 
   return (
     <>

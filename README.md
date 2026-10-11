@@ -34,6 +34,7 @@ Real listing photos are added by agents through the upload box in the agent port
 | `AUTH_TRUST_HOST` | yes (non-Vercel) | `true` |
 | `UPLOADTHING_TOKEN` | yes | UploadThing dashboard → API Keys (v7 token) |
 | `NEXT_PUBLIC_SITE_URL` | yes | Absolute origin for canonical URLs, sitemap, OpenGraph and JSON-LD |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | no | Google Search Console ownership tag (also `NEXT_PUBLIC_BING_SITE_VERIFICATION` for Bing) |
 | `NEXT_PUBLIC_MAP_TILE_URL` | no | Custom tile server. Defaults to OpenStreetMap with a muted filter |
 | `NEXT_PUBLIC_MAP_TILE_ATTRIBUTION` | no | Attribution for a custom tile server |
 
@@ -77,3 +78,20 @@ scripts/seed.ts        demo data
 - **Route protection.** Next.js 16 renamed `middleware.ts` to `proxy.ts`. The agency layout and every server action also verify the session.
 - **Uploads.** Listing photos go to your UploadThing bucket. Only signed-in agents can upload.
 - **Maps.** OpenStreetMap's public tiles suit development and light traffic. For production, set `NEXT_PUBLIC_MAP_TILE_URL` to a keyed provider such as Stadia Maps or MapTiler.
+
+## Developer
+
+Built and maintained by **Abhishek Kamyani**, a Full Stack Developer from
+Pakistan with 2+ years of experience building web products with React, Next.js
+and Node.js.
+
+- **Currently:** Full Stack Developer (Next.js) at AlFactor Inc., plus freelance work
+- **Education:** BS Computer Science, Sukkur IBA University
+- **Skills:** React, Next.js, TypeScript, Tailwind CSS, Node.js, Express, MongoDB, REST APIs, Jest, Playwright, Docker, CI/CD
+- **Other projects:** Sareer Publication Admin Panel (MERN), Tone Shift AI, AI Chef Mate (React Native)
+
+**Contact**
+
+- Portfolio: https://abhishekkamyani.vercel.app/
+- Email: abhishekkamyani@gmail.com
+- LinkedIn: https://linkedin.com/in/abhishekkamyani

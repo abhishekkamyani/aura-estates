@@ -1,7 +1,13 @@
 import type { MetadataRoute } from "next";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
+  // Vercel preview deployments are copies of the site on throwaway URLs;
+  // keep them out of search results so they never compete with production.
+  if (process.env.VERCEL_ENV === "preview") {
+    return { rules: [{ userAgent: "*", disallow: "/" }] };
+  }
+
   return {
     rules: [
       {
@@ -11,5 +17,6 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: absoluteUrl("/sitemap.xml"),
+    host: siteConfig.url,
   };
 }

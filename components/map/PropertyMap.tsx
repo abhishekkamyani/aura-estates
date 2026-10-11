@@ -10,6 +10,7 @@ import { ArrowUpRight } from "lucide-react";
 import { TILE_ATTRIBUTION, TILE_CLASS_NAME, TILE_URL } from "@/components/map/tiles";
 import { PLACEHOLDER_IMAGE } from "@/lib/constants";
 import { formatNumber, formatPrice, formatPriceCompact } from "@/lib/format";
+import { propertyPath } from "@/lib/routes";
 import type { PropertyDTO } from "@/types/property";
 
 export interface PropertyMapProps {
@@ -130,7 +131,7 @@ function PriceMarker({
             <div className="flex items-center justify-between pt-1.5">
               <span className="text-sm font-bold text-graphite">{formatPrice(property.price)}</span>
               <Link
-                href={`/properties/${property.id}`}
+                href={propertyPath(property)}
                 className="inline-flex items-center gap-1 text-xs font-semibold !text-gold-deep hover:underline"
               >
                 View <ArrowUpRight className="size-3.5" />

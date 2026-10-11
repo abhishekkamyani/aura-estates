@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { ArrowRight, ChevronRight, MapPin, Phone } from "lucide-react";
 import { LocationMap } from "@/components/map/lazy";
 import { Reveal } from "@/components/motion/Reveal";
@@ -13,23 +13,20 @@ import { PropertyJsonLd } from "@/components/seo/PropertyJsonLd";
 import { Button } from "@/components/ui/button";
 import { formatDate, formatNumber, formatPrice } from "@/lib/format";
 import { getPropertyById, getSimilarProperties } from "@/lib/properties";
-import { siteConfig } from "@/lib/site";
+import { cityPath, propertyIdFromParam, propertyPath } from "@/lib/routes";
+import { siteConfig, socialImageUrl } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-/** 1200×630 social card crop for Unsplash photography; other hosts pass through. */
-function socialImage(url: string) {
-  if (!url.includes("images.unsplash.com")) return url;
-  const u = new URL(url);
-  u.searchParams.set("w", "1200");
-  u.searchParams.set("h", "630");
-  u.searchParams.set("fit", "crop");
-  return u.toString();
+/** The segment is "<slug>-<id>"; only the trailing id identifies the listing. */
+async function loadProperty(segment: string) {
+  const id = propertyIdFromParam(segment);
+  return id ? getPropertyById(id) : null;
 }
 
 export async function generateMetadata({ params }: PageProps<"/properties/[id]">): Promise<Metadata> {
   const { id } = await params;
-  const property = await getPropertyById(id);
+  const property = await loadProperty(id);
   if (!property) {
     return { title: "Residence not found", robots: { index: false, follow: true } };
   }
@@ -38,11 +35,9 @@ export async function generateMetadata({ params }: PageProps<"/properties/[id]">
   const summary = `${property.bedrooms} bed · ${property.bathrooms} bath · ${formatNumber(property.sqft)} sq ft luxury residence for sale in ${property.city}.`;
   const firstParagraph = property.description.split(/\n+/)[0] ?? "";
   const description = `${summary} ${firstParagraph}`.slice(0, 158).replace(/\s+\S*$/, "") + "…";
-  const url = `/properties/${property.id}`;
+  const url = propertyPath(property);
   const images = property.imageUrls.slice(0, 4).map((src, i) => ({
-    url: socialImage(src),
-    width: 1200,
-    height: 630,
+    url: socialImageUrl(src),
     alt: `${property.title} in ${property.city} — photo ${i + 1}`,
   }));
 
@@ -50,6 +45,8 @@ export async function generateMetadata({ params }: PageProps<"/properties/[id]">
     title,
     description,
     alternates: { canonical: url },
+    // Sold homes stay reachable for buyers with the link but leave the index.
+    ...(property.status === "sold" ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       type: "website",
       url,
@@ -79,8 +76,12 @@ function tomorrowISO() {
 
 export default async function PropertyPage({ params }: PageProps<"/properties/[id]">) {
   const { id } = await params;
-  const property = await getPropertyById(id);
+  const property = await loadProperty(id);
   if (!property) notFound();
+  // One indexable URL per listing: bare ids and outdated slugs redirect permanently.
+  if (decodeURIComponent(id) !== propertyPath(property).split("/").pop()) {
+    permanentRedirect(propertyPath(property));
+  }
 
   const similar = await getSimilarProperties(property, 3);
   const pricePerSqft = property.sqft > 0 ? Math.round(property.price / property.sqft) : null;
@@ -121,7 +122,7 @@ export default async function PropertyPage({ params }: PageProps<"/properties/[i
                 <ChevronRight className="size-3" />
               </li>
               <li>
-                <Link href={`/properties?city=${encodeURIComponent(property.city)}`} className="hover:text-graphite">
+                <Link href={cityPath(property.city)} className="hover:text-graphite">
                   {property.city}
                 </Link>
               </li>
@@ -258,7 +259,7 @@ export default async function PropertyPage({ params }: PageProps<"/properties/[i
                   <div className="space-y-4 text-sm text-slate-600">
                     <p>Our advisors can introduce you to comparable residences, including off-market opportunities.</p>
                     <Button asChild className="h-12 w-full rounded-full bg-graphite text-white">
-                      <Link href={`/properties?city=${encodeURIComponent(property.city)}`}>
+                      <Link href={cityPath(property.city)}>
                         Explore {property.city}
                         <ArrowRight className="size-4" />
                       </Link>

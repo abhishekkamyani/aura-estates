@@ -28,6 +28,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { PLACEHOLDER_IMAGE } from "@/lib/constants";
 import { formatDate, formatNumber, formatPrice } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { propertyPath } from "@/lib/routes";
 import type { PropertyDTO, PropertyStatus } from "@/types/property";
 
 type StatusFilter = "all" | PropertyStatus;
@@ -138,7 +139,7 @@ export function ListingsManager({ properties, leadCounts, openNew = false }: Lis
       <Tooltip>
         <TooltipTrigger asChild>
           <Button asChild variant="ghost" size="icon-sm" className="rounded-full">
-            <Link href={`/properties/${p.id}`} target="_blank" aria-label={`View ${p.title} on site`}>
+            <Link href={propertyPath(p)} target="_blank" aria-label={`View ${p.title} on site`}>
               <ExternalLink className="size-3.5" />
             </Link>
           </Button>

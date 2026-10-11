@@ -39,7 +39,6 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
-  alternates: { canonical: "/" },
   formatDetection: { telephone: false, address: false, email: false },
   openGraph: {
     type: "website",
@@ -48,20 +47,11 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
-    images: [
-      {
-        url: siteConfig.heroImage.replace("w=2400", "w=1200") + "&h=630",
-        width: 1200,
-        height: 630,
-        alt: "A white modern villa with an infinity pool, represented by Aura Estates",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
-    images: [siteConfig.heroImage.replace("w=2400", "w=1200") + "&h=630"],
   },
   robots: {
     index: true,
@@ -69,6 +59,13 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
   category: "real estate",
+  // Search Console / Bing Webmaster ownership tags; rendered only when set.
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined,
+  },
 };
 
 export const viewport: Viewport = {

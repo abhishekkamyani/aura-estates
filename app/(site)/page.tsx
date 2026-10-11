@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { DestinationsSection } from "@/components/home/DestinationsSection";
 import { EditorialSection } from "@/components/home/EditorialSection";
 import { FeaturedSection } from "@/components/home/FeaturedSection";
@@ -14,6 +15,8 @@ import {
 // Inventory changes from the agency dashboard must appear immediately,
 // and builds must not require a database connection.
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default async function HomePage() {
   const [featured, destinations, stats, cities] = await Promise.all([

@@ -1,11 +1,21 @@
 import Link from "next/link";
 import { Logo } from "@/components/layout/Logo";
+import { getCities } from "@/lib/properties";
+import { cityPath } from "@/lib/routes";
 import { siteConfig } from "@/lib/site";
 
-const DESTINATIONS = ["Beverly Hills", "Malibu", "Miami Beach", "New York", "Aspen", "East Hampton"];
+/** Destinations with live listings, so the footer never links to an empty page. */
+async function liveDestinations() {
+  try {
+    return await getCities();
+  } catch {
+    return [];
+  }
+}
 
-export function SiteFooter() {
+export async function SiteFooter() {
   const year = new Date().getFullYear();
+  const destinations = await liveDestinations();
   return (
     <footer className="border-t border-stone-200/80 bg-white">
       <div className="container-luxe grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
@@ -18,13 +28,13 @@ export function SiteFooter() {
         <nav aria-label="Destinations" className="space-y-4">
           <h2 className="eyebrow font-sans">Destinations</h2>
           <ul className="space-y-2.5 text-sm">
-            {DESTINATIONS.map((city) => (
+            {destinations.map((city) => (
               <li key={city}>
                 <Link
-                  href={`/properties?city=${encodeURIComponent(city)}`}
+                  href={cityPath(city)}
                   className="text-slate-600 transition-colors hover:text-graphite"
                 >
-                  {city}
+                  Luxury homes in {city}
                 </Link>
               </li>
             ))}

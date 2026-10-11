@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { isValidObjectId, type SortOrder } from "mongoose";
 import { connectDB } from "@/lib/mongodb";
+import { slugify } from "@/lib/routes";
 import { Property, type PropertyDoc } from "@/models/Property";
 import type { PropertyDTO, PropertyFilters, PropertySort, PropertyStatus } from "@/types/property";
 
@@ -125,6 +126,12 @@ export async function getCities(): Promise<string[]> {
   await connectDB();
   const cities = (await Property.distinct("city", { status: { $ne: "sold" } })) as string[];
   return cities.sort((a, b) => a.localeCompare(b));
+}
+
+/** Resolves a destination landing-page slug ("beverly-hills") to the city as stored. */
+export async function getCityBySlug(slug: string): Promise<string | null> {
+  const cities = await getCities();
+  return cities.find((city) => slugify(city) === slug.toLowerCase()) ?? null;
 }
 
 export interface DestinationSummary {

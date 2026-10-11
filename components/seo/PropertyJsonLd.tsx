@@ -1,4 +1,5 @@
 import { JsonLd } from "@/components/seo/JsonLd";
+import { cityPath, propertyPath } from "@/lib/routes";
 import { absoluteImageUrl, absoluteUrl, siteConfig } from "@/lib/site";
 import type { PropertyDTO, PropertyStatus } from "@/types/property";
 
@@ -31,7 +32,7 @@ interface PropertyJsonLdProps {
  * matching `BreadcrumbList` for the property detail page.
  */
 export function PropertyJsonLd({ property }: PropertyJsonLdProps) {
-  const url = absoluteUrl(`/properties/${property.id}`);
+  const url = absoluteUrl(propertyPath(property));
   const residenceId = `${url}#residence`;
 
   const residence = {
@@ -95,7 +96,7 @@ export function PropertyJsonLd({ property }: PropertyJsonLdProps) {
         "@type": "ListItem",
         position: 3,
         name: property.city,
-        item: absoluteUrl(`/properties?city=${encodeURIComponent(property.city)}`),
+        item: absoluteUrl(cityPath(property.city)),
       },
       { "@type": "ListItem", position: 4, name: property.title, item: url },
     ],

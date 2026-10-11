@@ -5,7 +5,8 @@ import { PropertiesExplorer } from "@/components/property/PropertiesExplorer";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { formatPriceCompact } from "@/lib/format";
 import { getCities, getProperties, parsePropertyFilters } from "@/lib/properties";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { cityPath, propertyPath } from "@/lib/routes";
+import { absoluteUrl, siteConfig, socialImageUrl } from "@/lib/site";
 import type { PropertyFilters } from "@/types/property";
 
 export const dynamic = "force-dynamic";
@@ -29,18 +30,35 @@ export async function generateMetadata({ searchParams }: PageProps<"/properties"
   const title = `Luxury Homes for Sale${place}`;
   const description = filters.city
     ? `Browse exclusive luxury residences for sale in ${filters.city}, represented privately by ${siteConfig.name}. View photography, floor areas and book a private viewing.`
-    : `Explore estates, villas and penthouses for sale across America's most coveted destinations with ${siteConfig.name}. Interactive map, detailed specifications and private viewings.`;
-  const canonical = filters.city ? `/properties?city=${encodeURIComponent(filters.city)}` : "/properties";
-  // Only index the canonical destination pages, not every filter permutation.
-  const isPermutation = Boolean(filters.minPrice || filters.maxPrice || filters.beds || filters.sort);
+    : `Explore estates, villas and penthouses for sale across America's most coveted destinations. Interactive map, full specifications and private viewings.`;
+  // A city filter is the map view of that destination's landing page, which is
+  // the URL that should rank; an unknown city has nothing to canonicalise to.
+  const knownCity = filters.city
+    ? (await getCities()).find((c) => c.toLowerCase() === filters.city!.toLowerCase())
+    : undefined;
+  const canonical = knownCity ? cityPath(knownCity) : "/properties";
+  const shareImage = socialImageUrl(siteConfig.heroImage);
+  // Price/bedroom/sort permutations and unknown cities stay out of the index.
+  // (A known city is not noindexed: its canonical already hands the signal on.)
+  const isPermutation = Boolean(
+    filters.minPrice || filters.maxPrice || filters.beds || filters.sort || (filters.city && !knownCity),
+  );
 
   return {
     title,
     description,
     alternates: { canonical },
-    robots: isPermutation ? { index: false, follow: true } : undefined,
-    openGraph: { title: `${title} | ${siteConfig.name}`, description, url: canonical, type: "website" },
-    twitter: { card: "summary_large_image", title: `${title} | ${siteConfig.name}`, description },
+    // Omitted (not undefined) when indexable, so the site-wide robots directives still apply.
+    ...(isPermutation ? { robots: { index: false, follow: true } } : {}),
+    openGraph: {
+      title: `${title} | ${siteConfig.name}`,
+      description,
+      url: canonical,
+      type: "website",
+      siteName: siteConfig.name,
+      images: [{ url: shareImage, alt: "Luxury residences represented by Aura Estates" }],
+    },
+    twitter: { card: "summary_large_image", title: `${title} | ${siteConfig.name}`, description, images: [shareImage] },
   };
 }
 
@@ -58,13 +76,21 @@ export default async function PropertiesPage({ searchParams }: PageProps<"/prope
           "@type": "CollectionPage",
           name: `Luxury homes for sale${filters.city ? ` in ${filters.city}` : ""}`,
           url: absoluteUrl("/properties"),
+          isPartOf: { "@id": `${siteConfig.url}#website` },
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+              { "@type": "ListItem", position: 2, name: "Residences", item: absoluteUrl("/properties") },
+            ],
+          },
           mainEntity: {
             "@type": "ItemList",
             numberOfItems: properties.length,
             itemListElement: properties.map((p, i) => ({
               "@type": "ListItem",
               position: i + 1,
-              url: absoluteUrl(`/properties/${p.id}`),
+              url: absoluteUrl(propertyPath(p)),
               name: p.title,
             })),
           },
